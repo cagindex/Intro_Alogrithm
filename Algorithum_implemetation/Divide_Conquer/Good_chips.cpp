@@ -44,7 +44,20 @@ class chip{
         }
 };
 
-chip* GetInput(){
+struct chipList{
+    chip* chipPointer;
+    int listLen;
+
+    explicit chipList(chip* a, int len):chipPointer(a),listLen(len){cout << "constructor called" << endl;}
+    chipList(const chipList& chipset){
+        chipPointer = new chip[listLen];
+        listLen = chipset.listLen;
+        cout << chipPointer << endl;
+        memcpy(chipPointer, chipset.chipPointer, sizeof(chip)*listLen);
+    }
+};
+
+struct chipList GetInput(){
     int lineNum, maxLine, tmp;
     /**
      * 0 for false
@@ -58,15 +71,22 @@ chip* GetInput(){
         res[maxLine - lineNum].WriteQuality(tmp);
         lineNum --;
     }
-    return res;
+    struct chipList tmpStruct(res, maxLine);
+
+    cout << tmpStruct.chipPointer << endl;
+    return tmpStruct;
+}
+
+chip findGoodChip_Algorithm(chip* ChipSet){
+    /// @brief find the good chip in set which num of good ones is bigger than bad ones.
+    /// @param ChipSet 
+    /// @return a good chip
+    return chip(0);
 }
 
 int main(){
-    chip* ChipSet;
-    ChipSet = GetInput();
+    struct chipList ChipSet = GetInput();
     chip theGoodOne;
-    theGoodOne = findGoodChip_Algorithm(ChipSet);
-
-    delete[] ChipSet;
+    cout << ChipSet.chipPointer << endl;
     return 0;
 }
