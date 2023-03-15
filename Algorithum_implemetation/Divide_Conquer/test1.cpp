@@ -1,39 +1,30 @@
 #include<iostream>
 using namespace std;
 
-class a{
-    private:
-        int s;
-        int* p;
-    public:
-        a(){
-            cout << "a() called" << endl;
-            p = new int;
-            cout << "p: " << p << endl;
-        }
+struct st{
+    int x;
 
-        ~a(){
-            cout << "~a() called" << endl;
-            //delete p; // 不能delete同一个内存地址2遍
-        }
+    st(int x_):x(x_){cout << "constructor called" << endl;}
+    st(const st& s):x(s.x){cout << "copy constructor called" << endl;}
+    st(st&& s):x(s.x){cout << "move constructor called" << endl;}
+    ~st(){cout << "Destructor called" << endl;}
 };
 
-int* testtest(){
-    int* a = new int[10];
-    cout << a << endl;
-    return a;
+st testtest(){
+    struct st tmp(2);
+    return tmp;
 }
-
-a ttt(){
-    return a();
-}
+/**
+ * pesudo code:
+ * struct st tmp;
+ * __inner_tmp = tmp;
+ * return;
+ * destructor tmp;
+*/
 
 int main(){
-    a test1;
-    //a test2 = test1;
-    //这里因为是浅copy所以会导致两边的p都指向同一个位置
-    //本来是没什么事的，但是main结束后，会调用析构函数，在析构函数～a里面，我们delete了p，首先会delete test2，这个时候p地址已经delete了
-    //该程序对此地址没有访问和执行权限，之后会delete test1对p，因为是浅拷贝，test1 的p也是这个地址，此时程序没有这个地址对权限，所以报错.
-    a test2 = ttt();
+    struct st a(2);
+    struct st b = st(2);
+    struct st c = testtest();
     return 0;
 }

@@ -1,36 +1,35 @@
 #include<iostream>
 using namespace std;
 
-int ss(){
-    bool a = true;
-    return a<<2;
-}
-
-typedef struct ARR{
-    int * a;
-    int len;
-}arr;
-
-arr t(){
-    int* a = new int[5];
-    int s = 5;
-    arr bb;
-    bb.a = a;
-    bb.len = s;
-    return bb;
-}
 
 int main(){
-    for(int i = 0; i < 5 ; i++){
-        cout << rand()%2 << endl;
-    }
-    cout << "endl" << endl;
-    bool a = true;
-    cout << (a == 0) << endl;
-    cout << ss() << endl;
-
-    cout << "ARR test" << endl;
-    arr s = t();
-    cout << s.a[0] << endl;
+    int a = 3;
+    int& b = a;
+    const int* p1 = &a;
+    int* const p2 = &a;
+    b = 2;
     return 0;
 }
+// int main(){
+//     int a = 0;
+//     const int a1 = 20;
+//     const int &&b1 = a + a1; // 两个左值相加的结果会返回，返回的值是一个右值！！
+//     return 0;
+// }
+// int main(){
+//     int a = 3;
+//     //常指针
+//     const int* p = &a;
+//     //指针常量
+//     int* const pp = &a;
+//     cout << p << endl;
+//     cout << *p << endl;
+//     return 0;
+// }
+// int main(){
+//     int a = 5;
+//     int& b = a;
+//     cout << "The a position at : " << &a << endl;
+//     cout << "The b position at : " << &b << endl;
+//     return 0;
+// }
